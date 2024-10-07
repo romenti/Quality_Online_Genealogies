@@ -1,4 +1,4 @@
-Here, you can find the original data sets are not included due to their high size. 
+Here, the original data sets from FamiLinx are not included due to their high size. 
 
 The original FamiLinx database consists of two datasets:
 
