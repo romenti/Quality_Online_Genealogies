@@ -1,5 +1,11 @@
 ##### Find kin for a focal #####
 
+# upload all packages
+source('R-scripts/upload_packages.R')
+# upload all functions
+source('R-scripts/functions.R')
+
+
 #### read the Focal data set ####
 
 data_focal = load('Cleaned_Datasets/data_focal.RData')
