@@ -1,0 +1,1 @@
+This folder contains all the results of the analyses. The results are stored in .RData files.
