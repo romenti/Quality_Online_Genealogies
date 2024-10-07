@@ -655,6 +655,46 @@ deaths_calculation = function(data_death,country_name,year_min=NA,year_max=NA){
 }
 
 
+#function for only three age classes
+pop_pyramid_calculation_2 = function(data,country_name,year_min=NA,year_max=NA){
+  
+  if(is.na(country_name) | is.null(data)){
+    return(print("Enter the genealogical data set and the country name"))
+  } else{
+    pop_final = NULL
+    pop_final = data %>%
+      filter(!(is.na(gender)),
+             gender!="unknown",
+             !(is.na(birth_year)),
+             !(is.na(death_year)),
+             (death_year-birth_year)>=0,
+             (death_year-birth_year)<=110,
+             birth_country==country_name,
+             birth_country==death_country) %>%
+      mutate(years = purrr::map2(birth_year,death_year,~seq(.x,.y,by=1))) %>%
+      unnest(years) %>%
+      filter(years>=year_min,
+             years<=year_max) %>%
+      mutate(age = years-birth_year,
+             age_class = case_when(age>=0 & age<15 ~ "0-14",
+                                   age>=15 & age<65 ~ "15-64",
+                                   age>=65  ~ "65+")) %>%
+      mutate(age_class = factor(age_class, levels = c("0-14","15-64","65+")),
+             gender = factor(gender,levels = c("male","female"))) %>%
+      group_by(years,age_class,gender,.drop=FALSE) %>%
+      dplyr::tally() %>%
+      #complete(years,age_class,gender, fill = list(n = 0)) %>%
+      mutate(country=country_name) %>%
+      pivot_wider(names_from = "gender", values_from = "n") %>%
+      mutate(total = male+female) %>%
+      pivot_longer(!c("years","country","age_class"),names_to = "gender", values_to = "counts")
+    return(pop_final)
+    
+  }
+  
+}
+
+
 
 
 
