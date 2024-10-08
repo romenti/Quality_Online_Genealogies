@@ -1,7 +1,7 @@
 This folder contains all the results of the analyses. The results are stored in .RData files.
 
-- neg_binom_relative-name_results.RData: results of negative binomial models for each relative type
+- results_mortality_analysis.RData: .RData file with life expectancy estimates (at birth and age 30)
 
-- model_relative-name_sensitivity_analysis.RData: results of alternative models for each relative type as a sensitivity check
+- neg_binom_<relative-name>_results.RData: .RData files with negative binomial regression results for different relatives and demographic variables
 
-- results_mortality_analysis.RData: data sets with Swedish life expectancy estimates 
+- model_<relative-name>_sensitivity_analysis.RData: .RData files with alternative models for different relatives and demographic variables (as sensitivity checks)
