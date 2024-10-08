@@ -1,7 +1,11 @@
+##### Uploafd packages ####
 source('R-scripts/upload_packages.R')
+#### Uploafd functions ####
 source('R-scripts/functions.R')
-source("MortalitySmooth/LifeTableFUN_II.R") # from Stelter & Alburez-Gutierrez (2022)
-source("MortalitySmooth/cleversearch.R") # from Camarda (2013)
+#### Upload life tables functions  from Stelter & Alburez-Gutierrez (2022) ####
+source("MortalitySmooth/LifeTableFUN_II.R") 
+#### Upload functions from MortalitySmooth package from Camarda (2013) ####
+source("MortalitySmooth/cleversearch.R") # 
 source("MortalitySmooth/Mort2Dsmooth.R") 
 source("MortalitySmooth/Mort2Dsmooth_checker.R") 
 source("MortalitySmooth/Mort2Dsmooth_estimate.R") 
