@@ -1,7 +1,7 @@
 This folder contains all the cleaned data sets in .RData format
 
 
-- data_red_var.RData: .RData file with all individuals from FamiLinx database with the only variables that were selected for the analyses
+- data_red_var.RData: .RData file with all individuals from FamiLinx database with a subset of all variables that were selected for the analyses
 
 - data_focal.RData: .RData file with the data set of focal individuals
 
