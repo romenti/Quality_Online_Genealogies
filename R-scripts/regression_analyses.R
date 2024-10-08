@@ -617,6 +617,7 @@ model_siblings_completeness_deathyear = glm.nb(siblings_deathyear~complete_death
                                           data=data_siblings_deathyear)
 
 
+
 siblings_data_deathcountry = data_siblings_nolist %>%
   filter(!(is.na(siblings_id))) %>%
   mutate(complete_deathcountry_siblings = ifelse(!(is.na(death_country_siblings)),1,0),
@@ -1271,6 +1272,7 @@ model_cousins_completeness_birthcountry = coef(summary(model_cousins_completenes
 model_cousins_completeness_deathcountry = coef(summary(model_cousins_completeness_deathcountry))
 model_cousins_quality_birthdate = coef(summary(model_cousins_quality_birthdate))
 model_cousins_quality_deathdate = coef(summary(model_cousins_quality_deathdate))
+
 
 save(model_cousins_completeness_birthyear,model_cousins_completeness_deathyear,
      model_cousins_completeness_birthcountry,model_cousins_completeness_deathcountry,
