@@ -17,4 +17,4 @@ Details on the content of the repository
 - Figures folder contains all the images in .jpeg format that are included in the paper
 
 
-  Further details on the context of each folder are included in README files that are included in each folder
+  Further details on the content of each folder are included in README files in each of the folders
