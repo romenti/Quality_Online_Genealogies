@@ -311,10 +311,10 @@ sweden_1900=sweden_1900 %>%
               select(years, age_class, gender, counts_uncomplete_dates, pop_tot_uncomplete_dates, pop_perc_uncomplete_dates) %>%
               rename(Year=years, Age=age_class), by=c("Year", "Age", "gender"))
 
-save(sweden_1751, file = "Cleaned_Datasets/sweden_1751.RData")
-save(sweden_1800, file = "Cleaned_Datasets/sweden_1800.RData")
-save(sweden_1850, file = "Cleaned_Datasets/sweden_1850.RData")
-save(sweden_1900, file = "Cleaned_Datasets/sweden_1900.RData")
+save(sweden_1751, file = "Results/sweden_1751.RData")
+save(sweden_1800, file = "Results/sweden_1800.RData")
+save(sweden_1850, file = "Results/sweden_1850.RData")
+save(sweden_1900, file = "Results/sweden_1900.RData")
 
 
 ### all years from 1751-1900
