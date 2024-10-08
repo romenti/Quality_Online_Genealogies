@@ -53,7 +53,7 @@ sweden_1751=Sweden_Population %>%
 
 ### Sweden 1751, available year and month of birth and death
 # subset of sample with only observations with available year and month for birth and death
-rm(data_red_var)
+
 subset_complete_dates= data_red_var %>%
   filter(!is.na(birth_month) & !is.na(death_month)) %>%
   rename(country_birth_final=birth_country,
