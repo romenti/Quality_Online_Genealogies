@@ -14,6 +14,10 @@ data_focal = load('Cleaned_Datasets/data_focal.RData')
 
 data_var_red = load('Cleaned_Datasets/data_var_red.RData')
 
+# Individual-levels links between parents and children based on unique id identifiers
+
+links <- data.table::fread(file = "Raw_Data/relations-anon.txt")
+
 # select relevant variable
 
 data_focal = data_focal %>%
@@ -25,7 +29,7 @@ data_focal = data_focal %>%
          country_death_final,age_death,
          century)
 
-# links <- data.table::fread(file = "Raw_Data/relations-anon.txt")
+
 
 parents = load('Cleaned_Datasets/parents.RData')
 
