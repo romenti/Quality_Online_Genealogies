@@ -7,7 +7,7 @@ This folder contains all the cleaned data sets in .RData format
 
 - relative-name_data_set.RData: .RData files containing the data sets linking the focal individual to each type of relative
 
-- sweden_<year>.RData: .RData files with Swedish population counts by age and sex from HMD and from FamiLinx in selected years
 
 
-The cleaned data sets can be downloaded [https://osf.io/ydzfq/].
+
+The cleaned data sets can be downloaded [here](https://osf.io/ydzfq/).
