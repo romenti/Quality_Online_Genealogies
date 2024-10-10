@@ -9,3 +9,5 @@ This folder contains all the cleaned data sets in .RData format
 
 - sweden_<year>.RData: .RData files with Swedish population counts by age and sex from HMD and from FamiLinx in selected years
 
+
+The cleaned data sets can be downloaded [https://osf.io/ydzfq/].
