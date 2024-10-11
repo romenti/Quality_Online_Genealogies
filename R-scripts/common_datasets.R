@@ -1,5 +1,7 @@
 #### upload packages ####
-source('upload_packages.R')
+source('R-script/upload_packages.R')
+#### upload functions ####
+source('R-script/functions.R')
 
 #### upload original data sets ####
 
