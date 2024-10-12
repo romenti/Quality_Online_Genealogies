@@ -1,4 +1,4 @@
-library2 = function (package1, ...) {
+library_upload = function (package1, ...) {
   packages = c(package1, ...)
   for (package in packages) {
     if (package %in% rownames(installed.packages())) {
@@ -23,4 +23,4 @@ packages  = c("here", "data.table", "tidyverse", "reshape2","mapdata",
               "fmsb","maps")
 
 
-library2(packages)
+library_upload(packages)
