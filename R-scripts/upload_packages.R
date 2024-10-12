@@ -19,7 +19,8 @@ library2 = function (package1, ...) {
 packages  = c("here", "data.table", "tidyverse", "reshape2","mapdata",
               "purrr","h2o","readxl","cowplot","kableExtra","hrbrthemes",
               "plotly","LearnBayes","assertthat","readr","babynames","viridis",
-              "zoo",'corrr','rstan',"multidplyr","MASS","parallel","doParallel")
+              "zoo",'corrr','rstan',"multidplyr","MASS","parallel","doParallel",
+              "fmsb","maps")
 
 
 library2(packages)
