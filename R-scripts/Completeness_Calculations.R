@@ -2,7 +2,9 @@
 source('R-scripts/upload_packages.R')
 source('R-scripts/functions.R')
 
-
+#### load data ####
+load('Cleaned_Datasets/data_red_var.RData')
+load('Cleaned_Datasets/data_focal.RData')
 
 
 # completeness demographic information measured as mean of non-missing information in  the selected demographic variables
