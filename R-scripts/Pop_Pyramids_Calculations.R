@@ -10,7 +10,7 @@ load('Cleaned_Datasets/data_red_var.RData')
 
 # country_name: string for the name of the country of interest
 
-# absolute population counts by year, sex and country
+# absolute population counts by year, sex and country from Human Mortality Database
 
 Sweden_Population <- read.csv("HMD_Data/Sweden_Population.txt", sep="")
 
