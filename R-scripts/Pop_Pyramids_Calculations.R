@@ -1,5 +1,4 @@
 #### Install and upload libraries ####
-
 source('R-scripts/upload_packages.R')
 source('R-scripts/functions.R')
 
@@ -142,7 +141,7 @@ sweden_1800_complete_dates=pop_pyramid_calculation(subset_complete_dates,"Sweden
 
 ### Sweden 1800, available year and missing month birth or death
 # subset of sample with at least one date uncomplete
-subset_uncomplete_dates=indicator_demo_category %>%
+subset_uncomplete_dates = data_red_var %>%
   filter(!is.na(birth_year) & !is.na(death_year) & (is.na(birth_month) | is.na(death_month))) %>%
   rename(country_birth_final=birth_country,
          country_death_final=death_country)
@@ -215,7 +214,7 @@ sweden_1850_complete_dates=pop_pyramid_calculation(subset_complete_dates,"Sweden
 
 ### Sweden 1850, available year and missing month birth or death
 # subset of sample with at least one date uncomplete
-subset_uncomplete_dates=indicator_demo_category %>%
+subset_uncomplete_dates=data_var_red %>%
   filter(!is.na(birth_year) & !is.na(death_year) & (is.na(birth_month) | is.na(death_month))) %>%
   rename(country_birth_final=birth_country,
          country_death_final=death_country)
@@ -275,7 +274,7 @@ sweden_1900=Sweden_Population %>%
 
 ### Sweden 1900, available year and month of birth and death
 # subset of sample with only observations with available year and month for birth and death
-subset_complete_dates=indicator_demo_category %>%
+subset_complete_dates= data_red_var %>%
   filter(!is.na(birth_month) & !is.na(death_month)) %>%
   rename(country_birth_final=birth_country,
          country_death_final=death_country)
@@ -289,7 +288,7 @@ sweden_1900_complete_dates=pop_pyramid_calculation(subset_complete_dates,"Sweden
 
 ### Sweden 1900, available year and missing month birth or death
 # subset of sample with at least one date uncomplete
-subset_uncomplete_dates=indicator_demo_category %>%
+subset_uncomplete_dates= data_red_var %>%
   filter(!is.na(birth_year) & !is.na(death_year) & (is.na(birth_month) | is.na(death_month))) %>%
   rename(country_birth_final=birth_country,
          country_death_final=death_country)
