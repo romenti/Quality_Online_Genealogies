@@ -3,6 +3,84 @@ source('R-script/functions.R')
 
 #### Spider plots ####
 
+#### Analytical vs Initial Samples ####
+
+load("Results/spider_chart_data.RData")
+
+radarchart(data_spider_chart1,
+           vlcex=2.2,
+           cglty = 1,       # Grid line type
+           cglcol = "gray", # Grid line color
+           cglwd = 2,       # Line width of the grid
+           pcol = c("#d7191c","#1b7837"),        # Color of the line
+           plwd = 4,        # Width of the line
+           plty = 1,
+           axistype = 1,
+           calcex = 2.5,
+           axislabcol = "black") 
+
+legend(x=-2.3,y=1.4,
+       legend = rownames(data_spider_chart1[-c(1,2),]),
+       bty = "n", pch = 20, col = c("#d7191c","#1b7837"),
+       text.col = "grey25", cex=2,pt.cex = 5)
+
+
+### spider chart conditional on having some demographic information available ###
+
+
+radarchart(data_spider_chart2,
+           vlcex=2.2,
+           cglty = 1,       # Grid line type
+           cglcol = "gray", # Grid line color
+           cglwd = 2,       # Line width of the grid
+           pcol = c("#d7191c","#fdae61","#1b7837","#abd9e9","#2c7bb6"),       # Color of the line
+           plwd = 4,        # Width of the line
+           plty = 1,
+           axistype = 1,
+           calcex = 2.5,
+           axislabcol = "black") + 
+  legend(x=1.3, y=1.4,
+         legend = rownames(data_spider_chart2[-c(1,2),]),
+         bty = "n", pch = 20, col = c("#d7191c","#fdae61","#1b7837","#abd9e9","#2c7bb6"),
+         text.col = "grey25",cex = 2, pt.cex = 5)
+
+
+# Non-missing demographic variables by country of birth in focal sample
+
+radarchart(data_spider_chart3,
+           vlcex=2.2,     
+           cglty = 1,       # Grid line type
+           cglcol = "gray", # Grid line color
+           cglwd = 2,       # Line width of the grid
+           pcol = c("#d7191c","#fdae61","#1b7837","#abd9e9","#2c7bb6"),        # Color of the line
+           plwd = 4,        # Width of the line
+           plty = 1,
+           axistype = 1,
+           calcex = 2.5,
+           axislabcol = "black") 
+legend(x=-2.3, y=1.4,
+      legend = rownames(sample_country_complete[-c(1,2),]),
+      bty = "n", pch = 20, col = c("#d7191c","#fdae61","#1b7837","#abd9e9","#2c7bb6"),
+      text.col = "grey25",cex=2, pt.cex = 5)
+
+# Non-missing demographic variables by country of birth in inital sample
+
+radarchart(data_spider_chart4,
+           vlcex=2.2,     
+           cglty = 1,       # Grid line type
+           cglcol = "gray", # Grid line color
+           cglwd = 2,       # Line width of the grid
+           pcol = c("#d7191c","#fdae61","#1b7837","#abd9e9","#2c7bb6"),        # Color of the line
+           plwd = 4,        # Width of the line
+           plty = 1,
+           axistype = 1,
+           calcex = 2.5,
+           axislabcol = "black") 
+legend(x=-2.3, y=1.4,
+       legend = rownames(data_spider_chart4[-c(1,2),]),
+       bty = "n", pch = 20, col = c("#d7191c","#fdae61","#1b7837","#abd9e9","#2c7bb6"),
+       text.col = "grey25",cex=2, pt.cex = 5)
+
 
 #### Quality plot ####
 
