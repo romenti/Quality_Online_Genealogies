@@ -1,6 +1,6 @@
-##### Uploafd packages ####
+##### Upload packages ####
 source('R-scripts/upload_packages.R')
-#### Uploafd functions ####
+#### Upload functions ####
 source('R-scripts/functions.R')
 #### Upload life tables functions  from Stelter & Alburez-Gutierrez (2022) ####
 source("MortalitySmooth/LifeTableFUN_II.R") 
