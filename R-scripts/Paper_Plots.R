@@ -1,5 +1,7 @@
-source('R-script/upload_packages.R')
-source('R-script/functions.R')
+#### Install and upload libraries and useful functions ####
+source('R-scripts/upload_packages.R')
+source('R-scripts/functions.R')
+
 
 #### Spider plots ####
 
