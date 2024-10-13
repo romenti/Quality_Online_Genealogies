@@ -1123,7 +1123,8 @@ data_countries_overall = data_countries_overall[!(duplicated(data_countries_over
 data_focal  = countries_final_birth_death %>%
   left_join(data_countries_overall,by="profileid") %>%
   left_joint(parents %>%
-              select(m=mother,f=father,p_unknown=parent_sex_unknown)) # link to parents
+              select(m=mother,f=father,p_unknown=parent_sex_unknown)) %>% # link to parents
+  select(profileid,m,f,p_unknown,everything())
 
 
 save(data_focal,file='Cleaned_Datasets/data_focal.RData')
