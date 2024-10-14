@@ -7,3 +7,5 @@ This folder contains all the results of the analyses. The results are stored in 
 - model_<relative-name>_sensitivity_analysis.RData: .RData files with alternative models for different relatives and demographic variables (as sensitivity checks)
 
 - sweden_<year>.RData: .RData files with swedish population counts by age and sex from the Human Mortality Database and FamiLinx
+
+- tables_appendix.RData: .RData file with tables reported in the appendix of the paper
