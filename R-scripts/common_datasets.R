@@ -1,12 +1,12 @@
 #### upload packages ####
-source('R-script/upload_packages.R')
+source('R-scripts/upload_packages.R')
 #### upload functions ####
-source('R-script/functions.R')
+source('R-scripts/functions.R')
 
 #### upload original data sets ####
 
-prof <- data.table::fread(file = "profiles-anon.txt",na.strings = "*")
-links <- data.table::fread(file = "relations-anon.txt")
+prof <- data.table::fread(file = "Raw_Data/profiles-anon.txt",na.strings = "*")
+links <- data.table::fread(file = "Raw_Data/relations-anon.txt",na.strings = "*")
 
 #### clean location strings in the data set ####
 recode_profile_output = recode_profile(prof)
@@ -631,6 +631,109 @@ profiles_ireland = data_ireland %>%
 profiles_ireland_formatted = format_profiles(profiles_ireland,links)
 
 
+
+#### CZECH REPUBLIC ####
+
+country_codes_czech_republic <- c('CZ', 'CZECH REPUBLIC', 'CZECHIA', 
+                                  'CZECHOSLOVAKIA', 'ČESKÁ REPUBLIKA', 
+                                  'ČESKOSLOVENSKO', 'BOHEMIA', 
+                                  'MORAVIA', 'SLOVAKIA (FORMER CZECHOSLOVAKIA)', 
+                                  'CZECH', 'CZ', 'CZE', 'PRAHA')
+
+regex_codes_czech_republic <- c("\\bczech republic\\b|\\bczechia\\b|\\bczechoslovakia\\b|\\bbohemia\\b|\\bmoravia\\b|\\bcz\\b", 
+                                "CZECH REPUBLIC", "CZ")
+
+
+profiles_czech_republic = data_czech_republic %>%
+  mutate(country_birth_final = ifelse(!(is.na(country_birth_code))|
+                                        !(is.na(country_birth_regex)) |
+                                        !(is.na(country_birth_coord_based)),
+                                      "CZECH REPUBLIC", NA),
+         country_death_final = ifelse(
+           !(is.na(country_death_code))|
+             !(is.na(country_death_regex)) |
+             !(is.na(country_death_coord_based)),
+           "CZECH REPUBLIC", NA))
+
+
+profiles_czech_republic_formatted = format_profiles(profiles_czech_republic, links)
+
+#### ITALY ####
+country_codes_italy <- c('IT', 'ITALY', 'ITALIA', 
+                         'REPUBBLICA ITALIANA', 'KINGDOM OF ITALY', 
+                         'ROMA', 'SICILY', 'TUSCANY', 
+                         'VENICE', 'MILAN', 'NAPLES')
+
+regex_codes_italy <- c("\\bitaly\\b|\\bitalia\\b|\\bitalian\\b|\\bit\\b", 
+                       "ITALY", "IT")
+
+
+profiles_italy = data_italy %>%
+  mutate(country_birth_final = ifelse(!(is.na(country_birth_code)) |
+                                        !(is.na(country_birth_regex)) |
+                                        !(is.na(country_birth_coord_based)),
+                                      "ITALY", NA),
+         country_death_final = ifelse(
+           !(is.na(country_death_code)) |
+             !(is.na(country_death_regex)) |
+             !(is.na(country_death_coord_based)),
+           "ITALY", NA))
+
+profiles_italy_formatted = format_profiles(profiles_italy, links)
+
+#### NEW ZEALAND ####
+
+country_codes_new_zealand <- c('NZ', 'NEW ZEALAND', 'AOTEAROA', 
+                               'NZL', 'DOMINION OF NEW ZEALAND', 
+                               'WELLINGTON', 'AUCKLAND', 'CHRISTCHURCH')
+
+
+regex_codes_new_zealand <- c("\\bnew zealand\\b|\\baotearoa\\b|\\bnz\\b|\\bnzl\\b", 
+                             "NEW ZEALAND", "NZ")
+
+
+
+profiles_new_zealand = data_new_zealand %>%
+  mutate(country_birth_final = ifelse(!(is.na(country_birth_code)) |
+                                        !(is.na(country_birth_regex)) |
+                                        !(is.na(country_birth_coord_based)),
+                                      "NEW ZEALAND", NA),
+         country_death_final = ifelse(
+           !(is.na(country_death_code)) |
+             !(is.na(country_death_regex)) |
+             !(is.na(country_death_coord_based)),
+           "NEW ZEALAND", NA))
+
+profiles_new_zealand_formatted = format_profiles(profiles_new_zealand, links)
+
+
+#### ISRAEL ####
+
+
+country_codes_israel <- c('IL', 'ISRAEL', 'STATE OF ISRAEL', 
+                          'PALESTINE (PRE-1948)', 'HOLY LAND', 
+                          'ISRAELI', 'JERUSALEM', 'TEL AVIV', 
+                          'HAIFA', 'NAZARETH', 'JUDEA', 
+                          'SAMARIA', 'GAZA', 'WEST BANK')
+
+
+regex_codes_israel <- c("\\bisrael\\b|\\bstate of israel\\b|\\bil\\b|\\bholy land\\b", 
+                        "ISRAEL", "IL")
+
+
+profiles_israel = data_israel %>%
+  mutate(country_birth_final = ifelse(!(is.na(country_birth_code)) |
+                                        !(is.na(country_birth_regex)) |
+                                        !(is.na(country_birth_coord_based)),
+                                      "ISRAEL", NA),
+         country_death_final = ifelse(
+           !(is.na(country_death_code)) |
+             !(is.na(country_death_regex)) |
+             !(is.na(country_death_coord_based)),
+           "ISRAEL", NA))
+
+profiles_israel_formatted = format_profiles(profiles_israel, links)
+
 #### Final selection for the country of birth ####
 
 countries_birth_profiles = rbind(profiles_canada_formatted, 
@@ -653,7 +756,11 @@ countries_birth_profiles = rbind(profiles_canada_formatted,
                                  profiles_poland_formatted,
                                  profiles_germany_formatted,
                                  profiles_belgium_formatted,
-                                 profiles_south_africa_formatted) %>%
+                                 profiles_south_africa_formatted,
+                                 profiles_czech_republic_formatted,
+                                 profiles_italy_formatted,
+                                 profiles_new_zealand_formatted,
+                                 profiles_israel_formatted) %>%
   filter(!(is.na(country_birth_final)))
 
 countries_birth = list(profiles_canada_formatted %>%
@@ -715,7 +822,19 @@ countries_birth = list(profiles_canada_formatted %>%
                          select(profileid,country_birth_switzerlands=country_birth_final),
                        profiles_india_formatted%>%
                          filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_india=country_birth_final))
+                         select(profileid,country_birth_india=country_birth_final),
+                       profiles_czech_republic_formatted %>%
+                         filter(!(is.na(country_birth_final)))%>%
+                         select(profileid,country_birth_czech_republic=country_birth_final),
+                       profiles_italy_formatted %>%
+                         filter(!(is.na(country_birth_final)))%>%
+                         select(profileid,country_birth_italy=country_birth_final),
+                       profiles_new_zealand_formatted %>%
+                         filter(!(is.na(country_birth_final)))%>%
+                         select(profileid,country_birth_new_zealand=country_birth_final),
+                       profiles_israel_formatted %>%
+                         filter(!(is.na(country_birth_final)))%>%
+                         select(profileid,country_birth_israel=country_birth_final))
 
 result_birth = Reduce(function(x, y) full_join(x, y, by="profileid"), countries_birth ) 
 
@@ -788,146 +907,6 @@ countries_birth_final = rbind(result_birth[rowSums(is.na(result_birth))==9] %>%
                                 select(profileid) %>%
                                 left_join(countries_birth_profiles,by="profileid"),
                               duplicates_birth)
-
-
-
-#### Final selection for the country of birth ####
-
-
-countries_birth = list(profiles_canada_formatted %>%
-                         filter(!(is.na(country_birth_final))) %>% 
-                         select(profileid,country_birth_canada=country_birth_final),
-                       profiles_france_formatted %>% 
-                         filter(!(is.na(country_birth_final))) %>%
-                         select(profileid,country_birth_france = country_birth_final),
-                       profiles_sweden_formatted %>% 
-                         filter(!(is.na(country_birth_final))) %>% 
-                         select(profileid,country_birth_sweden=country_birth_final),
-                       profiles_finland_formatted %>% 
-                         filter(!(is.na(country_birth_final))) %>%
-                         select(profileid,country_birth_finaland=country_birth_final),
-                       profiles_norway_formatted %>% 
-                         filter(!(is.na(country_birth_final))) %>% 
-                         select(profileid,country_birth_norway=country_birth_final),
-                       profiles_germany_formatted %>% 
-                         filter(!(is.na(country_birth_final))) %>%
-                         select(profileid,country_birth_germany=country_birth_final),
-                       profiles_denmark_formatted %>% 
-                         filter(!(is.na(country_birth_final))) %>%
-                         select(profileid,country_birth_denmark=country_birth_final),
-                       profiles_usa_formatted%>% 
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_usa=country_birth_final),
-                       profiles_uk_formatted%>% 
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_uk=country_birth_final),
-                       profiles_netherlands_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_netherlands=country_birth_final),
-                       profiles_estonia_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_estonia=country_birth_final),
-                       profiles_australia_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_australia=country_birth_final),
-                       profiles_south_africa_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_south_africa=country_birth_final),
-                       profiles_belgium_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_belgium=country_birth_final),
-                       profiles_russia_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_russia=country_birth_final),
-                       profiles_poland_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_poland=country_birth_final),
-                       profiles_ireland_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_ireland=country_birth_final),
-                       profiles_spain_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_spain=country_birth_final),
-                       profiles_switzerland_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_switzerlands=country_birth_final),
-                       profiles_india_formatted%>%
-                         filter(!(is.na(country_birth_final)))%>%
-                         select(profileid,country_birth_india=country_birth_final)))
-
-                  
-
-result_birth = Reduce(function(x, y) full_join(x, y, by="profileid"), countries_birth ) 
-
-
-
-country_birth_codes_correction = result_birth[rowSums(is.na(result_birth))<9] %>%
-  left_join(countries_birth_profiles %>% select(starts_with("country_birth"),profileid),by="profileid") %>%
-  select(starts_with("country_birth"),profileid) %>%
-  group_by(profileid) %>%
-  dplyr::mutate(V = row_number()) %>%
-  ungroup() %>%
-  pivot_wider(
-    id_cols = profileid,
-    names_from = V,
-    values_from =  !c(profileid, V),
-    values_fill = NA) %>%
-  filter(!(is.na(country_birth_code_1)) |
-           !(is.na(country_birth_code_2)) |
-           !(is.na(country_birth_code_3))) %>%
-  filter(!((!(is.na(country_birth_code_1)) & !(is.na(country_birth_code_2))) |
-             (!(is.na(country_birth_code_1)) & !(is.na(country_birth_code_3))) |
-             (!(is.na(country_birth_code_2)) & !(is.na(country_birth_code_3))))) %>%
-  mutate(country_birth_final_correct = case_when(!(is.na(country_birth_code_1)) ~ country_birth_code_1,
-                                                 !(is.na(country_birth_code_2)) ~ country_birth_code_2,
-                                                 !(is.na(country_birth_code_3)) ~ country_birth_code_3))
-
-
-country_birth_regex_correction = result_birth[rowSums(is.na(result_birth))<9 & !(result_birth$profileid %in% country_birth_codes_correction$profileid)] %>%
-  left_join(countries_birth_profiles %>% select(starts_with("country_birth"),profileid),by="profileid") %>%
-  select(starts_with("country_birth"),profileid) %>%
-  group_by(profileid) %>%
-  dplyr::mutate(V = row_number()) %>%
-  ungroup() %>%
-  pivot_wider(
-    id_cols = profileid,
-    names_from = V,
-    values_from =  !c(profileid, V),
-    values_fill = NA) %>%
-  filter(!(is.na(country_birth_regex_1)) |
-           !(is.na(country_birth_regex_2)) |
-           !(is.na(country_birth_regex_3))) %>%
-  filter(!((!(is.na(country_birth_regex_1)) & !(is.na(country_birth_regex_2))) |
-             (!(is.na(country_birth_regex_1)) & !(is.na(country_birth_regex_3))) |
-             (!(is.na(country_birth_regex_2)) & !(is.na(country_birth_regex_3))))) %>%
-  mutate(country_birth_final_correct = case_when(!(is.na(country_birth_regex_1)) ~ country_birth_regex_1,
-                                                 !(is.na(country_birth_regex_2)) ~ country_birth_regex_2,
-                                                 !(is.na(country_birth_regex_3)) ~ country_birth_regex_3))
-
-
-
-duplicates_birth = rbind(country_birth_codes_correction,
-                         country_birth_regex_correction) %>%
-  select(profileid,country_birth_final_correct) %>%
-  left_join(countries_birth_profiles,by="profileid") %>%
-  mutate(country_birth_final = ifelse(!(is.na(country_birth_final_correct)),
-                                      country_birth_final_correct,
-                                      country_birth_final)) %>%
-  select(-country_birth_final_correct)
-
-
-duplicates_birth = duplicates_birth[!duplicated(duplicates_birth$profileid),]
-
-
-
-
-countries_birth_final = rbind(result_birth[rowSums(is.na(result_birth))==9] %>%
-                                select(profileid) %>%
-                                left_join(countries_birth_profiles,by="profileid"),
-                              duplicates_birth)
-
-
-
 
 
 
@@ -955,7 +934,11 @@ countries_death_profiles = rbind(profiles_canada_formatted,
                                  profiles_poland_formatted,
                                  profiles_germany_formatted,
                                  profiles_belgium_formatted,
-                                 profiles_south_africa_formatted) %>%
+                                 profiles_south_africa_formatted,
+                                 profiles_czech_republic_formatted,
+                                 profiles_italy_formatted,
+                                 profiles_new_zealand_formatted,
+                                 profiles_israel_formatted) %>%
   filter(!(is.na(country_death_final)))
 
 
@@ -1023,7 +1006,19 @@ countries_death = list(profiles_canada_formatted %>%
                          select(profileid,country_death_switzerlands=country_death_final),
                        profiles_india_formatted%>%
                          filter(!(is.na(country_death_final)))%>%
-                         select(profileid,country_death_india=country_death_final))
+                         select(profileid,country_death_india=country_death_final),
+                       profiles_czech_republic_formatted %>%
+                         filter(!(is.na(country_death_final)))%>%
+                         select(profileid,country_death_czech_republic=country_death_final),
+                       profiles_italy_formatted %>%
+                         filter(!(is.na(country_death_final)))%>%
+                         select(profileid,country_death_italy=country_death_final),
+                       profiles_new_zealand_formatted %>%
+                         filter(!(is.na(country_death_final)))%>%
+                         select(profileid,country_death_new_zealand=country_death_final),
+                       profiles_israel_formatted %>%
+                         filter(!(is.na(country_death_final)))%>%
+                         select(profileid,country_death_israel=country_death_final))
 
 result_death = Reduce(function(x, y) full_join(x, y, by="profileid"), countries_death ) 
 
@@ -1112,8 +1107,8 @@ data_countries_overall = rbind(profiles_canada_formatted,profiles_norway_formatt
                                profiles_india_formatted,profiles_estonia_formatted,profiles_ireland_formatted,
                                profiles_spain_formatted,profiles_russia_formatted,profiles_switzerland_formatted,
                                profiles_poland_formatted,profiles_germany_formatted,profiles_belgium_formatted,
-                               profiles_south_africa_formatted) %>%
-  select(-country_birth_final,-country_death_final) 
+                               profiles_south_africa_formatted,profiles_czech_republic_formatted,profiles_italy_formatted,
+                               profiles_new_zealand_formatted,profiles_israel_formatted) 
 
 
 
@@ -1123,8 +1118,10 @@ data_countries_overall = data_countries_overall[!(duplicated(data_countries_over
 data_focal  = countries_final_birth_death %>%
   left_join(data_countries_overall,by="profileid") %>%
   left_joint(parents %>%
-              select(m=mother,f=father,p_unknown=parent_sex_unknown)) %>% # link to parents
-  select(profileid,m,f,p_unknown,everything())
+              select(m=mother,f=father,p_unknown=parent_sex_unknown)) %>%
+  mutate(m=ifelse(m==0,NA,m),
+         f=ifelse(f==0,NA,f),
+         p_unknown=ifelse(p_unknown==0,NA,p_unknown))
 
 
 save(data_focal,file='Cleaned_Datasets/data_focal.RData')
@@ -1138,10 +1135,11 @@ data_red_var = read_coordinates(prof)
 
 # unreasonable ages at death to NA
 
+# convert coordinates to text strings
+
 # match id to the parents id
 
 data_red_var = format_profiles_complete(data_red_var,link)
-
 
 # Select only variables that are needed to run the analyses
 
@@ -1159,8 +1157,11 @@ data_red_var = prof %>%
                                   age_death>=45 & age_death<60 ~ '45-59',
                                   age_death>=60 & age_death<75 ~ '60-74',
                                   age_death>=75 & age_death<90 ~ '75-89',
-                                  age_death>=90 ~ '90+'))
-
+                                  age_death>=90 ~ '90+')) 
+data_focal=data_focal %>%
+  mutate(m=ifelse(m==0,NA,m),
+       f=ifelse(f==0,NA,f),
+       p_unknown=ifelse(p_unknown==0,NA,p_unknown))
 
 save(data_red_var,file='Cleaned_Datasets/data_red_var.RData')
 
